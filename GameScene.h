@@ -6,6 +6,7 @@
 #include "Block.h"
 
 #include "TetrisInfo.h"
+#include "CellType.h"
 
 class GameScene :
 	public Scene
@@ -20,10 +21,11 @@ public:
 
 private :
 	void boxInit();
-	void wallRender() const;	//壁部分を描画
+	unsigned int getCellColor(const CellType type) const;
+	bool isCellEmpty(const CellType type) const;
 
 	Block* block;
-	bool box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
+	CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
 };
 
 

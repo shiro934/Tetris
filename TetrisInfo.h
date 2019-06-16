@@ -13,7 +13,7 @@ const int BOX_HEIGHT_CELL = 21;
 
 //ƒuƒƒbƒN‚ª—‚¿‚é” ‚Ìî•ñ
 const int BOX_POS_X = WND_WIDTH / 3;
-const int BOX_POS_Y = WND_HEIGHT / 3;
+const int BOX_POS_Y = WND_HEIGHT / 5;
 
 const int BOX_WIDTH = BLOCK_SIZE * BOX_WIDTH_CELL;
 const int BOX_HEIGHT = BLOCK_SIZE * BOX_HEIGHT_CELL;

@@ -1,0 +1,17 @@
+#pragma once
+#ifndef INCLUDED_CELL_TYPE_H_
+#define INCLUDED_CELL_TYPE_H_
+
+enum CellType {
+	EMPTY,
+	WALL,
+	CELL_L,
+	CELL_L_REVERSE,
+	CELL_T,
+	CELL_S,
+	CELL_S_REVERSE,
+	CELL_O,
+	CELL_I
+};
+
+#endif // !INCLUDED_CELL_TYPE_H_

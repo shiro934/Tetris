@@ -126,7 +126,10 @@
       <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
     <ClInclude Include="WindowInfo.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="CellType.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,3 +18,7 @@ void Block_L_Reverse::setBlock() {
 	block[2][1] = true;
 	block[3][1] = true;
 }
+
+void Block_L_Reverse::rotateBlock() {
+
+}

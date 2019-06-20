@@ -152,6 +152,7 @@
     <ClInclude Include="Block_S_Reverse.h" />
     <ClInclude Include="Block_T.h" />
     <ClInclude Include="CellType.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Resident.h" />
     <ClInclude Include="Scene.h" />

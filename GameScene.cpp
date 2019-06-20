@@ -40,9 +40,13 @@ void GameScene::input() const {
 }
 
 void GameScene::update() const {
+	block->move(DOWN);
 }
 
 void GameScene::render() const {
+
+	block->render();
+
 	unsigned int cellColor;
 	for (int i = 0; i < BOX_HEIGHT_CELL; i++) {
 		for (int j = 0; j < BOX_WIDTH_CELL; j++) {

@@ -11,6 +11,8 @@ public:
 	Block_T();
 	~Block_T();
 
+	void rotateBlock();
+
 private : 
 	void setBlock();
 };

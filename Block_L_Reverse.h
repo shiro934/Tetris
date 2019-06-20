@@ -10,6 +10,8 @@ public:
 	Block_L_Reverse();
 	~Block_L_Reverse();
 
+	void rotateBlock();
+
 private : 
 	void setBlock();
 };

@@ -10,6 +10,8 @@ public:
 	Block_O();
 	~Block_O();
 
+	void rotateBlock();
+
 private : 
 	void setBlock();
 };

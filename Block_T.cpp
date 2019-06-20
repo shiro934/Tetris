@@ -19,3 +19,7 @@ void Block_T::setBlock() {
 	block[0][2] = true;
 	block[1][1] = true;
 }
+
+void Block_T::rotateBlock() {
+
+}

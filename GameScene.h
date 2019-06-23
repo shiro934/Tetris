@@ -8,6 +8,8 @@
 #include "TetrisInfo.h"
 #include "CellType.h"
 
+#include "Score.h"
+
 class GameScene :
 	public Scene
 {
@@ -30,6 +32,7 @@ private :
 	bool lineDelete();	//ラインを消す 消せていたらtrueを返す
 	bool isGameOver();
 
+	Score scoreCalc;
 	Block* block;
 	CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
 	BlockCategory currentBlockType;	//現在落ちているブロックの種類

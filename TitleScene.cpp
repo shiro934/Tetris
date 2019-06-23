@@ -5,6 +5,7 @@
 
 TitleScene::TitleScene()
 {
+	frameCount = 0;
 }
 
 
@@ -19,11 +20,15 @@ void TitleScene::input(const InputKey& input) {
 }
 
 void TitleScene::update() {
-
+	frameCount++;
 }
 
 void TitleScene::render() const {
-	DrawString(WND_WIDTH / 2, WND_HEIGHT / 2, "TETRIS", 0x00ffff);
+	DrawString(WND_WIDTH / 2, WND_HEIGHT / 3, "TETRIS", 0x00ffff);
+
+	if (frameCount % MAX_FRAME_COUNT < FLASH_TIMING) {
+		DrawString(WND_WIDTH / 3 + 90, WND_HEIGHT * 2 / 3, "PUSH ENTER TO START", 0x00ffff);
+	}
 
 }
 

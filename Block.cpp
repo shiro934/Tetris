@@ -71,7 +71,7 @@ void Block::render() {
 	}
 }
 
-void Block::blockCellPos(int rowPos[4], int linePos[4]) const {
+void Block::blockCellPos(int rowPos[BLOCK_CELL_NUM], int linePos[BLOCK_CELL_NUM]) const {
 	unsigned int blockPosX = blockPos % BOX_WIDTH_CELL;
 	unsigned int blockPosY = blockPos / BOX_WIDTH_CELL;
 	int posCount = 0;
@@ -89,8 +89,8 @@ void Block::blockCellPos(int rowPos[4], int linePos[4]) const {
 }
 
 bool Block::canMove(const Direction dir, const CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL]) {
-	int rowPos[4];
-	int linePos[4];
+	int rowPos[BLOCK_CELL_NUM];
+	int linePos[BLOCK_CELL_NUM];
 	blockCellPos(rowPos, linePos);
 
 	int move_quantity_x = 0;	//移動量x
@@ -110,13 +110,13 @@ bool Block::canMove(const Direction dir, const CellType box[BOX_HEIGHT_CELL][BOX
 		break;
 	}
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < BLOCK_CELL_NUM; i++) {
 		rowPos[i] += move_quantity_x;
 		linePos[i] += move_quantity_y;
 	}
 
 	//壁にぶつかるかをチェック
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < BLOCK_CELL_NUM; i++) {
 		if (box[linePos[i]][rowPos[i]] != EMPTY) {
 			return false;
 		}
@@ -125,11 +125,11 @@ bool Block::canMove(const Direction dir, const CellType box[BOX_HEIGHT_CELL][BOX
 }
 
 bool Block::canRotate(const CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL]) {
-	int rowPos[4];
-	int linePos[4];
+	int rowPos[BLOCK_CELL_NUM];
+	int linePos[BLOCK_CELL_NUM];
 	blockCellPos(rowPos, linePos);
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < BLOCK_CELL_NUM; i++) {
 		if (box[linePos[i]][rowPos[i]] != EMPTY) {
 			return false;
 		}

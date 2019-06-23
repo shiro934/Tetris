@@ -128,7 +128,12 @@ void GameScene::render() const {
 	if (gameOverFlag) {
 		DrawString(WND_WIDTH / 2, WND_HEIGHT / 2, "GAME OVER", 0xff0000);
 	}
-
+	DrawFormatString(0, 20, 0xffffff, "Score : %d", scoreCalc.getCurrentScore());
+	DrawString(0, 40, "© ¨ : ‰¡ˆÚ“®", 0xffffff);
+	DrawString(0, 60, "« : ‰ºˆÚ“®", 0xffffff);
+	DrawString(0, 80, "ª : ˆê‹C‚É—Ž‚Æ‚·", 0xffffff);
+	DrawString(0, 100, "A : ”½ŽžŒv‰ñ‚è‚É‰ñ“]", 0xffffff);
+	DrawString(0, 120, "S : ŽžŒv‰ñ‚è‚É‰ñ“]", 0xffffff);
 }
 
 SceneType GameScene::nextSceneType() const {
@@ -229,11 +234,11 @@ void GameScene::setBlock() {
 		break;
 	}
 
-	int rowPos[4];
-	int linePos[4];
+	int rowPos[BLOCK_CELL_NUM];
+	int linePos[BLOCK_CELL_NUM];
 	block->blockCellPos(rowPos, linePos);
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < BLOCK_CELL_NUM; i++) {
 		box[linePos[i]][rowPos[i]] = type;
 	}
 }
@@ -266,6 +271,8 @@ bool GameScene::lineDelete() {
 	for (row = 1; row < BOX_WIDTH_CELL - 1; row++) {
 		box[0][row] = EMPTY;
 	}
+
+	scoreCalc.addScore();
 
 	return true;
 }

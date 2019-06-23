@@ -11,6 +11,8 @@ const int BLOCK_SIZE = 30;		//ブロックの一辺のサイズ
 const int BLOCK_WIDTH = 4;
 const int BLOCK_HEIGHT = 4;
 
+const int BLOCK_CELL_NUM = 4;	//ブロックのマス数
+
 //壁1マスを含めた箱の横・縦マス数
 const int BOX_WIDTH_CELL = 12;
 const int BOX_HEIGHT_CELL = 21;

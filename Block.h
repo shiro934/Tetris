@@ -21,7 +21,7 @@ public:
 	bool canRotate(const CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL]);
 	void render();
 
-	void blockCellPos(int rowPos[4], int linePos[4]) const;	//ボックスに対するブロックの位置を返す
+	void blockCellPos(int rowPos[BLOCK_CELL_NUM], int linePos[BLOCK_CELL_NUM]) const;	//ボックスに対するブロックの位置を返す
 protected : 
 	void blockInit();
 	virtual void setBlock() = 0;

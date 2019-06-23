@@ -15,6 +15,11 @@ public:
 	void render() const;
 
 	SceneType nextSceneType() const;
+
+private : 
+	int frameCount;
+	const int MAX_FRAME_COUNT = 120;
+	const int FLASH_TIMING = 100;
 };
 
 #endif // !INCLUDED_TITLE_SCENE_H_

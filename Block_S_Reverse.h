@@ -11,6 +11,8 @@ public:
 	~Block_S_Reverse();
 
 	void rotateBlock();
+	void rotateRight();
+	void rotateLeft();
 
 private : 
 	void setBlock();

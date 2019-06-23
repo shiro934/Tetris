@@ -13,8 +13,8 @@ SceneManager::~SceneManager()
 	delete currentScene;
 }
 
-void SceneManager::input() const {
-	currentScene->input();
+void SceneManager::input(const InputKey& input) const {
+	currentScene->input(input);
 }
 
 void SceneManager::update() const {

@@ -11,10 +11,13 @@ public:
 	Block_T();
 	~Block_T();
 
-	void rotateBlock();
+	void rotateRight();
+	void rotateLeft();
+	
+	void setBlock();
 
 private : 
-	void setBlock();
+	void rotateBlock();
 };
 
 #endif // !INCLUDED_BLOCK_T_H_

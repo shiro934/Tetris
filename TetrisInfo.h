@@ -7,6 +7,10 @@
 //ブロックの情報
 const int BLOCK_SIZE = 30;		//ブロックの一辺のサイズ
 
+//ブロックパターンを保持するための配列サイズ
+const int BLOCK_WIDTH = 4;
+const int BLOCK_HEIGHT = 4;
+
 //壁1マスを含めた箱の横・縦マス数
 const int BOX_WIDTH_CELL = 12;
 const int BOX_HEIGHT_CELL = 21;
@@ -18,7 +22,7 @@ const int BOX_POS_Y = WND_HEIGHT / 5;
 const int BOX_WIDTH = BLOCK_SIZE * BOX_WIDTH_CELL;
 const int BOX_HEIGHT = BLOCK_SIZE * BOX_HEIGHT_CELL;
 
-const unsigned int WALL_COLOR = 0xffffff;
+//const unsigned int WALL_COLOR = 0xffffff;
 
 
 #endif // !INCLUDED_TETRIS_INFO_H_

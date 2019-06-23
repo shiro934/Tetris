@@ -1,8 +1,9 @@
 #include "Block_O.h"
 
+#include "BlockColor.h"
 
 
-Block_O::Block_O()
+Block_O::Block_O() : Block(O_COLOR)
 {
 	setBlock();
 
@@ -22,4 +23,12 @@ void Block_O::setBlock() {
 
 void Block_O::rotateBlock() {
 
+}
+
+void Block_O::rotateRight() {
+	rotateBlock();
+}
+
+void Block_O::rotateLeft() {
+	rotateBlock();
 }

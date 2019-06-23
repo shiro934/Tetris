@@ -10,10 +10,12 @@ public:
 	Block_L_Reverse();
 	~Block_L_Reverse();
 
-	void rotateBlock();
+	void rotateRight();
+	void rotateLeft();
 
 private : 
 	void setBlock();
+	void rotateBlock();
 };
 
 #endif // !BLOCK_L_REVERSE_H_

@@ -15,17 +15,23 @@ public:
 	GameScene();
 	~GameScene();
 
-	void input() const;
-	void update() const;
+	void input(const InputKey& input) const;
+	void update();
 	void render() const;
 
 private :
 	void boxInit();
 	unsigned int getCellColor(const CellType type) const;
 	bool isCellEmpty(const CellType type) const;
+	void createBlock();
+	void setBlock();
+	bool lineDelete();	//ラインを消す 消せていたらtrueを返す
 
 	Block* block;
 	CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
+	BlockCategory currentBlockType;	//現在落ちているブロックの種類
+	int frameCount;		//何回回ったかをカウント
+	int downPace;		//ブロックが落ちるペース
 };
 
 

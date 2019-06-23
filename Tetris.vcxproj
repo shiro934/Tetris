@@ -135,7 +135,9 @@
     <ClCompile Include="Block_S.cpp" />
     <ClCompile Include="Block_S_Reverse.cpp" />
     <ClCompile Include="Block_T.cpp" />
+    <ClCompile Include="Fps.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="InputKey.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Resident.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -144,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockCategory.h" />
+    <ClInclude Include="BlockColor.h" />
     <ClInclude Include="Block_I.h" />
     <ClInclude Include="Block_L.h" />
     <ClInclude Include="Block_L_Reverse.h" />
@@ -153,7 +156,10 @@
     <ClInclude Include="Block_T.h" />
     <ClInclude Include="CellType.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="Fps.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="InputKey.h" />
+    <ClInclude Include="InputKeyState.h" />
     <ClInclude Include="Resident.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />

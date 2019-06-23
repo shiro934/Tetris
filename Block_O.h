@@ -10,10 +10,12 @@ public:
 	Block_O();
 	~Block_O();
 
-	void rotateBlock();
+	void rotateRight();
+	void rotateLeft();
 
 private : 
 	void setBlock();
+	void rotateBlock();
 };
 
 #endif // !INCLUDED_BLOCK_O_H_

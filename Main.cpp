@@ -20,11 +20,17 @@ int WINAPI WinMain(HINSTANCE hInstacem, HINSTANCE hPrevInstance,
 		if (ProcessMessage() != 0) {
 			break;
 		}
+		resident.input.setKey();	//Œ»İ‚Ì“ü—Íó‘Ô‚ğƒZƒbƒg
 		ClearDrawScreen();	//‰æ–Ê‚ÌŠG‚ğíœ
 
-		resident.sceneManag->input();
+		resident.sceneManag->input(resident.input);
 		resident.sceneManag->update();
 		resident.sceneManag->render();
+
+		//fpsˆ—
+		resident.fpsCalc.update();
+		resident.fpsCalc.drawFPS();
+		resident.fpsCalc.wait();
 	}
 	DxLib_End();
 

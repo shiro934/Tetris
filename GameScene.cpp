@@ -1,14 +1,25 @@
 #include "GameScene.h"
 
+#include "Block_L.h"
+#include "Block_L_Reverse.h"
+#include "BLOCK_T.h"
+#include "Block_S.h"
+#include"Block_S_Reverse.h"
+#include "Block_O.h"
 #include "Block_I.h"
+
+#include "BlockColor.h"
 
 #include "DxLib.h"
 
+#include <random>
+
 GameScene::GameScene()
 {
-	block = new Block_I();
-
+	createBlock();
 	boxInit();
+	frameCount = 0;
+	downPace = 60;
 }
 
 
@@ -33,20 +44,49 @@ void GameScene::boxInit() {
 	for (int width = 0; width < BOX_WIDTH_CELL; width++) {
 		box[BOX_HEIGHT_CELL - 1][width] = WALL;
 	}
+	//block->move(DOWN);
 }
 
-void GameScene::input() const {
+void GameScene::input(const InputKey& input) const {
+	if (input.checkKeyState(KEY_INPUT_LEFT) == KEY_DOWN) {
+		block->move(LEFT, box);
+	}
+	if (input.checkKeyState(KEY_INPUT_RIGHT) == KEY_DOWN) {
+		block->move(RIGHT, box);
+	}
+	if (input.checkKeyState(KEY_INPUT_DOWN) == KEY_DOWN) {
+		block->move(DOWN, box);
+	}
+	if (input.checkKeyState(KEY_INPUT_S) == KEY_DOWN) {
+		block->rotateRight();
+		if (block->canRotate(box) == false) {
+			block->rotateLeft();
+		}
+	}
+	if (input.checkKeyState(KEY_INPUT_A) == KEY_DOWN) {
+		block->rotateLeft();
+		if (block->canRotate(box) == false) {
+			block->rotateRight();
+		}
 
+	}
 }
 
-void GameScene::update() const {
-	block->move(DOWN);
+void GameScene::update() {
+	if (block->isDownFinish()) {
+		setBlock();
+		while (lineDelete()) {
+
+		}
+		createBlock();
+	}
+	if (frameCount % downPace == 0) {
+		block->move(DOWN, box);
+	}
+	frameCount++;
 }
 
 void GameScene::render() const {
-
-	block->render();
-
 	unsigned int cellColor;
 	for (int i = 0; i < BOX_HEIGHT_CELL; i++) {
 		for (int j = 0; j < BOX_WIDTH_CELL; j++) {
@@ -56,6 +96,9 @@ void GameScene::render() const {
 				cellColor, TRUE);
 		}
 	}
+
+	block->render();
+
 }
 
 bool GameScene::isCellEmpty(const CellType type) const {
@@ -63,37 +106,132 @@ bool GameScene::isCellEmpty(const CellType type) const {
 }
 
 unsigned int GameScene::getCellColor(const CellType type) const {
-	unsigned color;
 	switch (type) {
 	case WALL : 
-		color = 0x00ffffff;
-		break;
+		return BOX_WALL_COLOR;
 	case EMPTY : 
-		color = 0x00000000;
-		break;
+		return EMPTY_COLOR;
 	case CELL_L : 
-		color = 0x0000ff00;		//緑
-		break;
+		return L_COLOR;
 	case CELL_L_REVERSE : 
-		color = 0x00ffff00;
-		break;
+		return L_REVERSE_COLOR;
 	case CELL_T : 
-		color = 0x00ff8800;
-		break;
+		return T_COLOR;
 	case CELL_S : 
-		color = 0x00ff0000;
-		break;
+		return S_COLOR;
 	case CELL_S_REVERSE : 
-		color = 0x000000ff;
-		break;
+		return S_REVERSE_COLOR;
 	case CELL_O : 
-		color = 0x00ff00ff;
-		break;
+		return O_COLOR;
 	case CELL_I : 
-		color = 0x0000ffff;
+		return I_COLOR;
+	default : 
+		return UNKNOWN_COLOR;
+	}
+}
+
+void GameScene::createBlock() {
+
+	if (block) {
+		delete block;
+		block = nullptr;
+	}
+
+	//生成するブロックをランダムに決定
+	std::random_device rand;
+	currentBlockType = static_cast<BlockCategory>(rand() % BLOCK_CATEGORY_NUM);
+
+	switch (currentBlockType) {
+	case TYPE_L : 
+		block = new Block_L();
+		break;
+	case TYPE_L_REVERSE : 
+		block = new Block_L_Reverse();
+		break;
+	case TYPE_T : 
+		block = new Block_T();
+		break;
+	case TYPE_S : 
+		block = new Block_S();
+		break;
+	case TYPE_S_REVERSE : 
+		block = new Block_S_Reverse();
+		break;
+	case TYPE_O : 
+		block = new Block_O();
+		break;
+	case TYPE_I : 
+		block = new Block_I();
 		break;
 	default : 
-		color = 0x0088ff00;
+		break;
 	}
-	return color;
+}
+
+void GameScene::setBlock() {
+	CellType type;
+
+	switch (currentBlockType) {
+	case TYPE_L:
+		type = CELL_L;
+		break;
+	case TYPE_L_REVERSE:
+		type = CELL_L_REVERSE;
+		break;
+	case TYPE_T:
+		type = CELL_T;
+		break;
+	case TYPE_S:
+		type = CELL_S;
+		break;
+	case TYPE_S_REVERSE:
+		type = CELL_S_REVERSE;
+		break;
+	case TYPE_O:
+		type = CELL_O;
+		break;
+	case TYPE_I:
+		type = CELL_I;
+		break;
+	}
+
+	int rowPos[4];
+	int linePos[4];
+	block->blockCellPos(rowPos, linePos);
+
+	for (int i = 0; i < 4; i++) {
+		box[linePos[i]][rowPos[i]] = type;
+	}
+}
+
+bool GameScene::lineDelete() {
+	int row;
+	int line;
+	//消せる列を探す
+	for (line = 0; line < BOX_HEIGHT_CELL - 1; line++) {
+		for (row = 1; row < BOX_WIDTH_CELL - 1; row++) {
+			if (box[line][row] == EMPTY) {
+				break;
+			}
+		}
+		if (row == BOX_WIDTH_CELL - 1) {
+			break;
+		}
+	}
+
+	if (line == BOX_HEIGHT_CELL - 1) {
+		return false;
+	}
+
+	/* 消せる列が存在した */
+	for (; line != 0; line--) {
+		for (row = 1; row < BOX_WIDTH_CELL - 1; row++) {
+			box[line][row] = box[line - 1][row];
+		}
+	}
+	for (row = 1; row < BOX_WIDTH_CELL - 1; row++) {
+		box[0][row] = EMPTY;
+	}
+
+	return true;
 }

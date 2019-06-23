@@ -15,9 +15,11 @@ public:
 	GameScene();
 	~GameScene();
 
-	void input(const InputKey& input) const;
+	void input(const InputKey& input);
 	void update();
 	void render() const;
+
+	SceneType nextSceneType() const;
 
 private :
 	void boxInit();
@@ -26,12 +28,14 @@ private :
 	void createBlock();
 	void setBlock();
 	bool lineDelete();	//ラインを消す 消せていたらtrueを返す
+	bool isGameOver();
 
 	Block* block;
 	CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
 	BlockCategory currentBlockType;	//現在落ちているブロックの種類
 	int frameCount;		//何回回ったかをカウント
 	int downPace;		//ブロックが落ちるペース
+	bool gameOverFlag;
 };
 
 

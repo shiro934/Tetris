@@ -1,10 +1,11 @@
 #include "SceneManager.h"
 
+#include "TitleScene.h"
 #include "GameScene.h"
 
 SceneManager::SceneManager()
 {
-	currentScene = new GameScene();
+	currentScene = new TitleScene();
 }
 
 
@@ -23,4 +24,29 @@ void SceneManager::update() const {
 
 void SceneManager::render() const {
 	currentScene->render();
+}
+
+void SceneManager::sceneChange() {
+	if (currentScene->isNextScene() == false) {
+		return;
+	}
+
+	SceneType nextScene = currentScene->nextSceneType();
+
+	if (currentScene) {
+		delete currentScene;
+	}
+
+	switch (nextScene)
+	{
+	case TITLE:
+		currentScene = new TitleScene();
+		break;
+	case GAME:
+		currentScene = new GameScene();
+		break;
+	default:
+		break;
+	}
+
 }

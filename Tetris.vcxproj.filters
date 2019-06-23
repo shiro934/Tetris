@@ -93,6 +93,9 @@
     <ClCompile Include="Fps.cpp">
       <Filter>ソース ファイル\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -157,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="Fps.h">
       <Filter>ヘッダー ファイル\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneType.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

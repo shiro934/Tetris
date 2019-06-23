@@ -20,12 +20,23 @@ GameScene::GameScene()
 	boxInit();
 	frameCount = 0;
 	downPace = 60;
+	gameOverFlag = false;
 }
 
 
 GameScene::~GameScene()
 {
 	delete block;
+}
+
+bool GameScene::isGameOver() {
+	for (int i = 0; i < 4; i++) {
+		if (box[0][BOX_WIDTH_CELL / 2 + i] != EMPTY) {
+			gameOverFlag = true;
+			return true;
+		}
+	}
+	return false;
 }
 
 //ボックスを詰む箱の初期化
@@ -44,15 +55,23 @@ void GameScene::boxInit() {
 	for (int width = 0; width < BOX_WIDTH_CELL; width++) {
 		box[BOX_HEIGHT_CELL - 1][width] = WALL;
 	}
-	//block->move(DOWN);
 }
 
-void GameScene::input(const InputKey& input) const {
+void GameScene::input(const InputKey& input) {
+	if (gameOverFlag) {
+		return;
+	}
+
 	if (input.checkKeyState(KEY_INPUT_LEFT) == KEY_DOWN) {
 		block->move(LEFT, box);
 	}
 	if (input.checkKeyState(KEY_INPUT_RIGHT) == KEY_DOWN) {
 		block->move(RIGHT, box);
+	}
+	if (input.checkKeyState(KEY_INPUT_UP) == KEY_DOWN) {
+		while (block->isDownFinish() == false) {
+			block->move(DOWN, box);
+		}
 	}
 	if (input.checkKeyState(KEY_INPUT_DOWN) == KEY_DOWN) {
 		block->move(DOWN, box);
@@ -68,12 +87,19 @@ void GameScene::input(const InputKey& input) const {
 		if (block->canRotate(box) == false) {
 			block->rotateRight();
 		}
-
 	}
 }
 
 void GameScene::update() {
+	if (gameOverFlag) {
+		return;
+	}
+
 	if (block->isDownFinish()) {
+		if (isGameOver()) {
+//			gameOverFlag = true;
+			return;
+		}
 		setBlock();
 		while (lineDelete()) {
 
@@ -99,6 +125,14 @@ void GameScene::render() const {
 
 	block->render();
 
+	if (gameOverFlag) {
+		DrawString(WND_WIDTH / 2, WND_HEIGHT / 2, "GAME OVER", 0xff0000);
+	}
+
+}
+
+SceneType GameScene::nextSceneType() const {
+	return TITLE;
 }
 
 bool GameScene::isCellEmpty(const CellType type) const {

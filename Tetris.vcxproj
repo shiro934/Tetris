@@ -142,6 +142,7 @@
     <ClCompile Include="Resident.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
@@ -163,7 +164,9 @@
     <ClInclude Include="Resident.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneType.h" />
     <ClInclude Include="TetrisInfo.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="WindowInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,7 +3,7 @@
 #define INCLUDED_GAME_SCENE_H_
 
 #include "Scene.h"
-#include "Block.h"
+#include "Tetrimino.h"
 
 #include "TetrisInfo.h"
 #include "CellType.h"
@@ -20,24 +20,26 @@ public:
 	void input(const InputKey& input);
 	void update();
 	void render() const;
-
+	void textRender() const;
 	SceneType nextSceneType() const;
 
 private :
-	void boxInit();
+	void fieldInit();
 	unsigned int getCellColor(const CellType type) const;
 	bool isCellEmpty(const CellType type) const;
 	void createBlock();
-	void setBlock();
+	void setTetriminoOnField();
+	void hold();		//テトリミノをホールドする
 	bool lineDelete();	//ラインを消す 消せていたらtrueを返す
 	bool isGameOver();
 
 	Score scoreCalc;
-	Block* block;
-	CellType box[BOX_HEIGHT_CELL][BOX_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
-	BlockCategory currentBlockType;	//現在落ちているブロックの種類
-	int frameCount;		//何回回ったかをカウント
-	int downPace;		//ブロックが落ちるペース
+	Tetrimino* tetrimino;
+	Tetrimino* nextTetrimino;	//次に落ちてくるテトリミノ
+	Tetrimino* holdTetrimino;	//ホールドしているテトリミノ
+	CellType field[FIELD_HEIGHT_CELL][FIELD_WIDTH_CELL];	//そのインデックスが示すマスが埋まっていればtrue
+	int frameCount;		//何フレーム回ったかをカウント
+	int downPace;		//テトリミノはこのフレーム経過するごとに1マス落ちる
 	bool gameOverFlag;
 };
 

@@ -4,7 +4,6 @@
 
 Resident::Resident()
 {
-	sceneManag = new SceneManager();
 }
 
 

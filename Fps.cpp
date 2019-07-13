@@ -2,6 +2,8 @@
 
 #include "DxLib.h"
 
+#define FPS 60	//設定フレーム数
+#define STRING_COLOR 0xffffff
 Fps::Fps()
 {
 	startTime = 0;
@@ -14,22 +16,21 @@ Fps::~Fps()
 {
 }
 
-bool Fps::update() {
+void Fps::update() {
 	if (frameCount == 0) {
 		startTime = GetNowCount();
 	}
 	if (frameCount == FPS) {	//FPSで設定した値なら平均を計算
-		int t = GetNowCount();
-		fps = 1000.0f / (static_cast<float>(t - startTime) / FPS);
+		int time = GetNowCount();
+		fps = 1000.0f / (static_cast<float>(time - startTime) / FPS);
 		frameCount = 0;
-		startTime = t;
+		startTime = time;
 	}
 	frameCount++;
-	return true;
 }
 
 void Fps::drawFPS() const {
-	DrawFormatString(0, 0, 0xffffff, "%.1f", fps);
+	DrawFormatString(0, 0, STRING_COLOR, "%.1f", fps);
 }
 
 void Fps::wait() const {

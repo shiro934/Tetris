@@ -8,7 +8,7 @@ public:
 	Fps();
 	~Fps();
 
-	bool update();
+	void update();
 	void drawFPS() const;
 	void wait() const ;
 
@@ -17,7 +17,6 @@ private :
 	unsigned int startTime;		//測定開始時刻
 	int frameCount;
 	float fps;			//計算したフレーム数
-	const int FPS = 60;	//設定フレーム数
 };
 
 #endif // !INCLUDED_FPS_H_

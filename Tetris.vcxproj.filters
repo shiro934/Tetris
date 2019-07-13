@@ -34,12 +34,6 @@
     <Filter Include="ヘッダー ファイル\Constants">
       <UniqueIdentifier>{46db1352-aecd-40dd-8a2b-1515678acc68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Block">
-      <UniqueIdentifier>{530a88bb-01d7-4139-9254-7c2d4e4b744d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Block">
-      <UniqueIdentifier>{4efaeb41-42fa-4d11-a6b5-92c4a90d0376}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Input">
       <UniqueIdentifier>{2adc1196-f9b2-4e76-8d5c-56ff4c19a718}</UniqueIdentifier>
     </Filter>
@@ -56,30 +50,6 @@
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_L.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_L_Reverse.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_T.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_I.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_O.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_S.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block_S_Reverse.cpp">
-      <Filter>ソース ファイル\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>ソース ファイル\Base</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>ソース ファイル\GameComponents</Filter>
@@ -99,6 +69,9 @@
     <ClCompile Include="Score.cpp">
       <Filter>ソース ファイル\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Tetrimino.cpp">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -109,30 +82,6 @@
     </ClInclude>
     <ClInclude Include="BlockCategory.h">
       <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>ヘッダー ファイル\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_L.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_L_Reverse.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_T.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_I.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_O.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_S.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Block_S_Reverse.h">
-      <Filter>ヘッダー ファイル\Block</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>ヘッダー ファイル\GameComponents</Filter>
@@ -172,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>ヘッダー ファイル\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Tetrimino.h">
+      <Filter>ヘッダー ファイル\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

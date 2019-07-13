@@ -4,27 +4,26 @@
 
 #include "WindowInfo.h"
 
-//ブロックの情報
-const int BLOCK_SIZE = 30;		//ブロックの一辺のサイズ
+//テトリミノの情報
+const int TETRIMINO_CELL_SIZE = 30;		//テトリミノのマス一辺のピクセル数
 
-//ブロックパターンを保持するための配列サイズ
-const int BLOCK_WIDTH = 4;
-const int BLOCK_HEIGHT = 4;
+//テトリミノを保持するための配列サイズ
+const int TETRIMINO_WIDTH = 4;
+const int TETRIMINO_HEIGHT = 4;
 
-const int BLOCK_CELL_NUM = 4;	//ブロックのマス数
+const int TETRIMINO_CELL_NUM = 4;	//テトリミノのマス数
 
+
+////////////////フィールド情報/////////////////////
 //壁1マスを含めた箱の横・縦マス数
-const int BOX_WIDTH_CELL = 12;
-const int BOX_HEIGHT_CELL = 21;
+const int FIELD_WIDTH_CELL = 12;
+const int FIELD_HEIGHT_CELL = 21;
 
-//ブロックが落ちる箱の情報
-const int BOX_POS_X = WND_WIDTH / 3;
-const int BOX_POS_Y = WND_HEIGHT / 5;
+//テトリミノが落ちる箱の情報
+const int FIELD_POS_X = WND_WIDTH / 4;
+const int FIELD_POS_Y = WND_HEIGHT / 5;
 
-const int BOX_WIDTH = BLOCK_SIZE * BOX_WIDTH_CELL;
-const int BOX_HEIGHT = BLOCK_SIZE * BOX_HEIGHT_CELL;
-
-//const unsigned int WALL_COLOR = 0xffffff;
-
+const int FIELD_WIDTH = TETRIMINO_CELL_SIZE * FIELD_WIDTH_CELL;
+const int FIELD_HEIGHT = TETRIMINO_CELL_SIZE * FIELD_HEIGHT_CELL;
 
 #endif // !INCLUDED_TETRIS_INFO_H_

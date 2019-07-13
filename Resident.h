@@ -12,7 +12,7 @@ public:
 	Resident();
 	~Resident();
 
-	SceneManager* sceneManag;
+	SceneManager sceneManag;
 	InputKey input;
 	Fps fpsCalc;
 };

@@ -23,10 +23,10 @@ int WINAPI WinMain(HINSTANCE hInstacem, HINSTANCE hPrevInstance,
 		resident.input.setKey();	//Œ»İ‚Ì“ü—Íó‘Ô‚ğƒZƒbƒg
 		ClearDrawScreen();	//‰æ–Ê‚ÌŠG‚ğíœ
 
-		resident.sceneManag->sceneChange();
-		resident.sceneManag->input(resident.input);
-		resident.sceneManag->update();
-		resident.sceneManag->render();
+		resident.sceneManag.sceneChange();
+		resident.sceneManag.input(resident.input);
+		resident.sceneManag.update();
+		resident.sceneManag.render();
 
 		//fpsˆ—
 		resident.fpsCalc.update();

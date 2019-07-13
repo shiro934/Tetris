@@ -3,6 +3,10 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 
+#include <windows.h>
+
+#include <cassert>
+
 SceneManager::SceneManager()
 {
 	currentScene = new TitleScene();
@@ -15,18 +19,23 @@ SceneManager::~SceneManager()
 }
 
 void SceneManager::input(const InputKey& input) const {
+	assert(currentScene != nullptr);
 	currentScene->input(input);
 }
 
 void SceneManager::update() const {
+	assert(currentScene != nullptr);
 	currentScene->update();
 }
 
 void SceneManager::render() const {
+	assert(currentScene != nullptr);
 	currentScene->render();
 }
 
 void SceneManager::sceneChange() {
+	assert(currentScene != nullptr);
+
 	if (currentScene->isNextScene() == false) {
 		return;
 	}
@@ -46,6 +55,8 @@ void SceneManager::sceneChange() {
 		currentScene = new GameScene();
 		break;
 	default:
+		MessageBox(nullptr, TEXT("nextScene‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ")
+			, TEXT("ƒGƒ‰["), MB_OK);
 		break;
 	}
 

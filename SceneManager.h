@@ -15,7 +15,7 @@ public:
 	void update() const;
 	void render() const;
 
-	void sceneChange();
+	void sceneChange();	//ƒV[ƒ“Ø‚è‘Ö‚¦
 private : 
 	Scene* currentScene;
 };

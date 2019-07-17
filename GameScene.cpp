@@ -6,14 +6,17 @@
 
 #include <cassert>
 
-#define INIT_FALL_SPEED 60	//初期の落ちるスピード
+#define INIT_FALL_SPEED 60		//初期の落ちるスピード
+#define LEVEL_UP_LINE_NUM 5		//このライン消すごとにレベルを1あげる
+#define DOWN_PACE_LIMIT 10		//テトリミノが落ちるペースの限界
 
 GameScene::GameScene()
 {
-	createBlock();
-	createBlock();
+	createTetrimino();
+	createTetrimino();
 	fieldInit();
 	frameCount = 0;
+	level = 1;
 	downPace = INIT_FALL_SPEED;
 	gameOverFlag = false;
 }
@@ -27,7 +30,7 @@ GameScene::~GameScene()
 bool GameScene::isGameOver() {
 	//フィールド最上部の真ん中4マスが埋まった時ゲームオーバー
 	for (int i = 0; i < 4; i++) {
-		if (field[0][(FIELD_WIDTH_CELL / 2 - 2) + i] != EMPTY) {
+		if (field[1][(FIELD_WIDTH_CELL / 2 - 2) + i] != EMPTY) {
 			gameOverFlag = true;
 			return true;
 		}
@@ -47,7 +50,8 @@ void GameScene::fieldInit() {
 			}
 		}
 	}
-
+	field[0][0] = EMPTY;
+	field[0][FIELD_WIDTH_CELL - 1] = EMPTY;
 	for (int width = 0; width < FIELD_WIDTH_CELL; width++) {
 		field[FIELD_HEIGHT_CELL - 1][width] = WALL;
 	}
@@ -91,6 +95,12 @@ void GameScene::input(const InputKey& input) {
 			tetrimino->rotateRight();
 		}
 	}
+
+	if (input.checkKeyState(KEY_INPUT_SPACE) == KEY_DOWN) {
+		if (holdFlag) {
+			hold();
+		}
+	}
 }
 
 void GameScene::update() {
@@ -99,14 +109,15 @@ void GameScene::update() {
 	}
 
 	if (tetrimino->isDownFinish()) {
+		holdFlag = true;
+		setTetriminoOnField();
+		while (lineDelete()) {
+		}
 		if (isGameOver()) {
 			return;
 		}
-		setTetriminoOnField();
-		while (lineDelete()) {
-
-		}
-		createBlock();
+		createTetrimino();
+		return;
 	}
 	if (frameCount % downPace == 0) {
 		tetrimino->move(DOWN, field);
@@ -128,12 +139,27 @@ void GameScene::render() const {
 	//テトリミノの描画
 	tetrimino->render();
 
-	nextTetrimino->nextRender();
+
 
 	//ゲームオーバーになる範囲を表示
-	DrawBox(FIELD_POS_X + (TETRIMINO_CELL_SIZE * (FIELD_WIDTH_CELL / 2 - 2)), FIELD_POS_Y
-		, FIELD_POS_X + (TETRIMINO_CELL_SIZE * (FIELD_WIDTH_CELL / 2 + 2)), FIELD_POS_Y + TETRIMINO_CELL_SIZE,
+	DrawBox(FIELD_POS_X + (TETRIMINO_CELL_SIZE * (FIELD_WIDTH_CELL / 2 - 2)), FIELD_POS_Y + TETRIMINO_CELL_SIZE
+		, FIELD_POS_X + (TETRIMINO_CELL_SIZE * (FIELD_WIDTH_CELL / 2 + 2)), FIELD_POS_Y + TETRIMINO_CELL_SIZE * 2,
 		0xffffff, FALSE);
+
+	//ネクストの描画
+	nextTetrimino->nextRender();
+	DrawString(NEXT_TETRIMINO_POS_X + 50, NEXT_TETRIMINO_POS_Y - 40, "NEXT", 0xffffff);
+	DrawBox(NEXT_TETRIMINO_POS_X - 20, NEXT_TETRIMINO_POS_Y - 20
+		, NEXT_TETRIMINO_POS_X + TETRIMINO_CELL_SIZE * 5, NEXT_TETRIMINO_POS_Y + TETRIMINO_CELL_SIZE * 4, 0xffffff, FALSE);
+
+
+	//ホールドのを描画
+	DrawString(HOLD_TETRIMINO_POS_X + 50, HOLD_TETRIMINO_POS_Y - 40, "HOLD", 0xffffff);
+	DrawBox(HOLD_TETRIMINO_POS_X - 20, HOLD_TETRIMINO_POS_Y - 20
+		, HOLD_TETRIMINO_POS_X + TETRIMINO_CELL_SIZE * 5, HOLD_TETRIMINO_POS_Y + TETRIMINO_CELL_SIZE * 4, 0xffffff, FALSE);
+	if (holdTetrimino != nullptr) {
+		holdTetrimino->holdRender();
+	}
 
 	textRender();
 }
@@ -144,12 +170,13 @@ void GameScene::textRender() const {
 		DrawString(WND_WIDTH / 2, WND_HEIGHT / 2, "GAME OVER", 0xff0000);
 	}
 	DrawFormatString(0, 20, 0xffffff, "Score : %d", scoreCalc.getCurrentScore());
-	DrawString(0, 40, "← → : 横移動", 0xffffff);
-	DrawString(0, 60, "↓ : 下移動", 0xffffff);
-	DrawString(0, 80, "↑ : 一気に落とす", 0xffffff);
-	DrawString(0, 100, "A : 反時計回りに回転", 0xffffff);
-	DrawString(0, 120, "S : 時計回りに回転", 0xffffff);
-
+	DrawFormatString(0, 40, 0xffffff, "Level : %d", level);
+	DrawString(0, 60, "← → : 横移動", 0xffffff);
+	DrawString(0, 80, "↓ : 下移動", 0xffffff);
+	DrawString(0, 100, "↑ : 一気に落とす", 0xffffff);
+	DrawString(0, 120, "A : 反時計回りに回転", 0xffffff);
+	DrawString(0, 140, "S : 時計回りに回転", 0xffffff);
+	DrawString(0, 160, "SPACE : テトリミノをホールド", 0xffffff);
 }
 
 SceneType GameScene::nextSceneType() const {
@@ -166,24 +193,28 @@ unsigned int GameScene::getCellColor(const CellType type) const {
 }
 
 void GameScene::hold() {
-	//実装中
 	if (holdTetrimino == nullptr) {
 		holdTetrimino = tetrimino;
+		tetrimino = nullptr;
+		createTetrimino();
+		holdFlag = false;
 		return;
 	}
 	Tetrimino* tmp = holdTetrimino;
 	holdTetrimino = tetrimino;
-	tetrimino = holdTetrimino;
-
+	tetrimino = tmp;
+	tetrimino->tetriminoPosInit();
+	holdFlag = false;
 }
 
-void GameScene::createBlock() {
+void GameScene::createTetrimino() {
 
-	if (tetrimino != nullptr && nextTetrimino != nullptr) {
-		delete tetrimino;
+	if (nextTetrimino != nullptr) {
+		if (tetrimino != nullptr) {
+			delete tetrimino;
+		}
 		tetrimino = nextTetrimino;
 	}
-
 	//テトリミノのランダム生成が偏らないように生成したテトリミノの種類にフラグを立てる
 	static bool createCellTypeFlag[TETRIMINO_NUM] = {};
 	static int createTetriminoNum = 0;	//テトリミノを現在何種類生成したか
@@ -306,7 +337,7 @@ void GameScene::setTetriminoOnField() {
 
 	int rowPos[TETRIMINO_CELL_NUM];
 	int linePos[TETRIMINO_CELL_NUM];
-	tetrimino->blockCellPos(rowPos, linePos);
+	tetrimino->tetriminoCellPos(rowPos, linePos);
 
 	for (int i = 0; i < TETRIMINO_CELL_NUM; i++) {
 		field[linePos[i]][rowPos[i]] = type;
@@ -314,6 +345,8 @@ void GameScene::setTetriminoOnField() {
 }
 
 bool GameScene::lineDelete() {
+	static int delLineNum = 0;
+
 	int row;
 	int line;
 	//消せる列を探す
@@ -332,6 +365,16 @@ bool GameScene::lineDelete() {
 		return false;
 	}
 
+	//levelをあげる
+	delLineNum++;
+	if (delLineNum % LEVEL_UP_LINE_NUM == 0) {
+		level++;
+		if (downPace > DOWN_PACE_LIMIT) {
+			downPace--;
+		}
+		delLineNum = 0;
+	}
+
 	/* 消せる列が存在した */
 	for (; line != 0; line--) {
 		for (row = 1; row < FIELD_WIDTH_CELL - 1; row++) {
@@ -342,7 +385,7 @@ bool GameScene::lineDelete() {
 		field[0][row] = EMPTY;
 	}
 
-	scoreCalc.addScore();
+	scoreCalc.addScore(level);
 
 	return true;
 }

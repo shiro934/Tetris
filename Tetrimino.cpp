@@ -4,13 +4,9 @@
 
 #include "DxLib.h"
 
-#define NEXT_TETRIMINO_POS_X	(WND_WIDTH * 4 / 5)
-#define NEXT_TETRIMINO_POS_Y	(WND_HEIGHT / 10)
-
 Tetrimino::Tetrimino(const unsigned int x[], const unsigned int y[], const CellType cellType) : myCellType(cellType)
 {
 	tetriminoInit(x, y);
-	blockPos = FIELD_WIDTH_CELL / 2;	//真ん中から落ち始めるように初期化
 	downFinishFlag = false;
 }
 
@@ -19,8 +15,16 @@ Tetrimino::~Tetrimino()
 {
 }
 
+//テトリミノの位置を初期化
+void Tetrimino::tetriminoPosInit() {
+	tetriminoPos = FIELD_WIDTH_CELL / 2;	//真ん中から落ち始めるように初期化
+}
+
+//配列にテトリミノをセット
 void Tetrimino::tetriminoInit(const unsigned int initX[], const unsigned int initY[]) {
-	//ブロック保持領域の初期化
+	tetriminoPosInit();
+
+	//テトリミノの保持領域の初期化
 	for (int height = 0; height < TETRIMINO_HEIGHT; height++) {
 		for (int width = 0; width < TETRIMINO_WIDTH; width++) {
 			tetrimino[height][width] = false;
@@ -66,22 +70,22 @@ void Tetrimino::move(const Direction dir, const CellType field[FIELD_HEIGHT_CELL
 	switch (dir) {
 	case LEFT : 
 		if (canMove(LEFT, field)) {
-			blockPos--;
+			tetriminoPos--;
 		}
 		break;
 	case RIGHT : 
 		if (canMove(RIGHT, field)) {
-			blockPos++;
+			tetriminoPos++;
 		}
 		break;
 	case UP : 
 		if (canMove(UP, field)) {
-			blockPos -= FIELD_WIDTH_CELL;
+			tetriminoPos -= FIELD_WIDTH_CELL;
 		}
 		break;
 	case DOWN : 
 		if (canMove(DOWN, field)) {
-			blockPos += FIELD_WIDTH_CELL;
+			tetriminoPos += FIELD_WIDTH_CELL;
 		}
 		else {
 			downFinishFlag = true;
@@ -91,8 +95,8 @@ void Tetrimino::move(const Direction dir, const CellType field[FIELD_HEIGHT_CELL
 }
 
 void Tetrimino::render() {
-	unsigned int blockPosX = blockPos % FIELD_WIDTH_CELL;
-	unsigned int blockPosY = blockPos / FIELD_WIDTH_CELL;
+	unsigned int blockPosX = tetriminoPos % FIELD_WIDTH_CELL;
+	unsigned int blockPosY = tetriminoPos / FIELD_WIDTH_CELL;
 
 	for (int i = 0; i < TETRIMINO_HEIGHT; i++) {
 		for (int j = 0; j < TETRIMINO_WIDTH; j++) {
@@ -116,14 +120,24 @@ void Tetrimino::nextRender() const {
 			}
 		}
 	}
-
-	DrawBox(NEXT_TETRIMINO_POS_X - 20, NEXT_TETRIMINO_POS_Y - 20
-		, NEXT_TETRIMINO_POS_X + TETRIMINO_CELL_SIZE * 5, NEXT_TETRIMINO_POS_Y + TETRIMINO_CELL_SIZE * 4, 0xffffff, FALSE);
 }
 
-void Tetrimino::blockCellPos(int rowPos[TETRIMINO_CELL_NUM], int linePos[TETRIMINO_CELL_NUM]) const {
-	unsigned int blockPosX = blockPos % FIELD_WIDTH_CELL;
-	unsigned int blockPosY = blockPos / FIELD_WIDTH_CELL;
+void Tetrimino::holdRender() const {
+	//次のテトリミノを描画
+	for (int i = 0; i < TETRIMINO_HEIGHT; i++) {
+		for (int j = 0; j < TETRIMINO_WIDTH; j++) {
+			if (tetrimino[i][j]) {
+				DrawBox(HOLD_TETRIMINO_POS_X + (TETRIMINO_CELL_SIZE * j), HOLD_TETRIMINO_POS_Y + (TETRIMINO_CELL_SIZE * i)
+					, HOLD_TETRIMINO_POS_X + (TETRIMINO_CELL_SIZE * (j + 1)), HOLD_TETRIMINO_POS_Y + (TETRIMINO_CELL_SIZE * (i + 1)),
+					CELL_COLOR[myCellType], TRUE);
+			}
+		}
+	}
+}
+
+void Tetrimino::tetriminoCellPos(int rowPos[TETRIMINO_CELL_NUM], int linePos[TETRIMINO_CELL_NUM]) const {
+	unsigned int blockPosX = tetriminoPos % FIELD_WIDTH_CELL;
+	unsigned int blockPosY = tetriminoPos / FIELD_WIDTH_CELL;
 	int posCount = 0;
 
 	/* ボックスでのブロックの位置を渡す */
@@ -141,7 +155,7 @@ void Tetrimino::blockCellPos(int rowPos[TETRIMINO_CELL_NUM], int linePos[TETRIMI
 bool Tetrimino::canMove(const Direction dir, const CellType box[FIELD_HEIGHT_CELL][FIELD_WIDTH_CELL]) {
 	int rowPos[TETRIMINO_CELL_NUM];
 	int linePos[TETRIMINO_CELL_NUM];
-	blockCellPos(rowPos, linePos);
+	tetriminoCellPos(rowPos, linePos);
 
 	int move_quantity_x = 0;	//移動量x
 	int move_quantity_y = 0;	//移動量y
@@ -177,7 +191,7 @@ bool Tetrimino::canMove(const Direction dir, const CellType box[FIELD_HEIGHT_CEL
 bool Tetrimino::canRotate(const CellType box[FIELD_HEIGHT_CELL][FIELD_WIDTH_CELL]) {
 	int rowPos[TETRIMINO_CELL_NUM];
 	int linePos[TETRIMINO_CELL_NUM];
-	blockCellPos(rowPos, linePos);
+	tetriminoCellPos(rowPos, linePos);
 
 	for (int i = 0; i < TETRIMINO_CELL_NUM; i++) {
 		if (box[linePos[i]][rowPos[i]] != EMPTY) {

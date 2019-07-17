@@ -70,7 +70,7 @@
       <Filter>ソース ファイル\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Tetrimino.cpp">
-      <Filter>ソース ファイル\Base</Filter>
+      <Filter>ソース ファイル\GameComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +79,6 @@
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockCategory.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>ヘッダー ファイル\GameComponents</Filter>
@@ -101,14 +98,8 @@
     <ClInclude Include="Direction.h">
       <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="BlockColor.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
     <ClInclude Include="InputKey.h">
       <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="InputKeyState.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
     <ClInclude Include="Fps.h">
       <Filter>ヘッダー ファイル\GameComponents</Filter>
@@ -116,14 +107,17 @@
     <ClInclude Include="TitleScene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneType.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>ヘッダー ファイル\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="Tetrimino.h">
-      <Filter>ヘッダー ファイル\Base</Filter>
+      <Filter>ヘッダー ファイル\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="InputKeyState.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneType.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

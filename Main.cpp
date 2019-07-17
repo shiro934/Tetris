@@ -23,6 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstacem, HINSTANCE hPrevInstance,
 		resident.input.setKey();	//現在の入力状態をセット
 		ClearDrawScreen();	//画面の絵を削除
 
+		//シーン処理
 		resident.sceneManag.sceneChange();
 		resident.sceneManag.input(resident.input);
 		resident.sceneManag.update();

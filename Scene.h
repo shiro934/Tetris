@@ -3,7 +3,6 @@
 #define INCLUDED_SCENE_H_
 
 #include "InputKey.h"
-
 #include "SceneType.h"
 
 class Scene
@@ -16,9 +15,9 @@ public:
 	virtual void update() = 0;
 	virtual void render() const = 0;
 
-	virtual SceneType nextSceneType() const = 0;
+	virtual SceneType nextSceneType() const = 0;	//次のシーンタイプを返す
 
-	bool isNextScene() const { return nextSceneFlag; }
+	bool isNextScene() const { return nextSceneFlag; }	//シーン遷移をするか返す
 protected : 
 	bool nextSceneFlag;
 };

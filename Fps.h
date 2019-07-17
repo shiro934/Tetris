@@ -12,7 +12,7 @@ public:
 	void drawFPS() const;
 	void wait() const ;
 
-	int getFrameCount() const { return frameCount; }	//何フレームメカを返す
+	int getFrameCount() const { return frameCount; }	//何フレーム目かを返す
 private : 
 	unsigned int startTime;		//測定開始時刻
 	int frameCount;

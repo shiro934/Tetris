@@ -140,8 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tetrimino.h" />
-    <ClInclude Include="BlockCategory.h" />
-    <ClInclude Include="BlockColor.h" />
     <ClInclude Include="CellType.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Fps.h" />

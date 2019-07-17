@@ -3,7 +3,8 @@
 #include "DxLib.h"
 
 #define FPS 60	//İ’èƒtƒŒ[ƒ€”
-#define STRING_COLOR 0xffffff
+#define STRING_COLOR 0xffffff	//•¶š‚ÌF
+
 Fps::Fps()
 {
 	startTime = 0;

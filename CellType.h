@@ -17,6 +17,7 @@ enum CellType {
 	MAX
 };
 
+//CellType‚É‘Î‰‚µ‚½F‚Ì”z—ñ
 static const unsigned int CELL_COLOR[CellType::MAX] = {
 	0x00ff00, 
 	0xffff00, 

@@ -36,6 +36,7 @@ void SceneManager::render() const {
 void SceneManager::sceneChange() {
 	assert(currentScene != nullptr);
 
+	//シーン遷移するかをチェック
 	if (currentScene->isNextScene() == false) {
 		return;
 	}
